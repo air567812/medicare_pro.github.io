@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Pro - Symptom Checker & Home Remedies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <div class="header__logo">
+                    <div class="medical-cross">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2V22M2 12H22" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="header__title">
+                        <h1>MediCare Pro</h1>
+                        <p>Symptom Checker & Home Remedies</p>
+                    </div>
+                </div>
+                <div class="header__developer">
+                    <span class="developer-tag">Developed by <strong>DEBUGGING DONS</strong></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Professional Medical Symptom Analysis</h2>
+                        <p>Select your symptoms below to get detailed disease information and home remedies. Always consult with healthcare professionals for serious conditions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Symptom Input Section -->
+            <section class="symptom-input-section">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Select Your Symptoms</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="symptom-categories">
+                            <div class="form-group">
+                                <label class="form-label" for="common-symptoms">Common Symptoms</label>
+                                <select id="common-symptoms" class="form-control">
+                                    <option value="">Select a symptom</option>
+                                    <option value="runny nose">Runny Nose</option>
+                                    <option value="congestion">Congestion</option>
+                                    <option value="sneezing">Sneezing</option>
+                                    <option value="sore throat">Sore Throat</option>
+                                    <option value="cough">Cough</option>
+                                    <option value="headache">Headache</option>
+                                    <option value="head pain">Head Pain</option>
+                                    <option value="pressure">Pressure in Head</option>
+                                    <option value="throbbing">Throbbing Pain</option>
+                                    <option value="sensitivity to light">Sensitivity to Light</option>
+                                    <option value="nausea">Nausea</option>
+                                    <option value="elevated temperature">Elevated Temperature</option>
+                                    <option value="chills">Chills</option>
+                                    <option value="sweating">Sweating</option>
+                                    <option value="body aches">Body Aches</option>
+                                    <option value="fatigue">Fatigue</option>
+                                    <option value="throat pain">Throat Pain</option>
+                                    <option value="difficulty swallowing">Difficulty Swallowing</option>
+                                    <option value="scratchiness">Scratchiness</option>
+                                    <option value="hoarseness">Hoarseness</option>
+                                    <option value="stomach discomfort">Stomach Discomfort</option>
+                                    <option value="bloating">Bloating</option>
+                                    <option value="heartburn">Heartburn</option>
+                                    <option value="gas">Gas</option>
+                                    <option value="difficulty falling asleep">Difficulty Falling Asleep</option>
+                                    <option value="frequent awakening">Frequent Awakening</option>
+                                    <option value="daytime fatigue">Daytime Fatigue</option>
+                                    <option value="irritability">Irritability</option>
+                                    <option value="muscle soreness">Muscle Soreness</option>
+                                    <option value="stiffness">Stiffness</option>
+                                    <option value="tenderness">Tenderness</option>
+                                    <option value="reduced range of motion">Reduced Range of Motion</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="selected-symptoms">
+                            <h4>Selected Symptoms:</h4>
+                            <div id="symptom-tags" class="symptom-tags"></div>
+                        </div>
+
+                        <button id="analyze-btn" class="btn btn--primary btn--full-width" disabled>Analyze Symptoms</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disease Analysis Section -->
+            <section class="disease-analysis-section hidden" id="disease-results">
+                <div class="card">
+                    <div class="card__header">
+                        <h3>Disease Analysis Results</h3>
+                    </div>
+                    <div class="card__body">
+                        <div id="disease-list" class="disease-list"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disease Details Modal -->
+            <div class="modal hidden" id="disease-modal">
+                <div class="modal__overlay">
+                    <div class="modal__content">
+                        <div class="modal__header">
+                            <h3 id="modal-disease-name"></h3>
+                            <button class="modal__close" id="modal-close">&times;</button>
+                        </div>
+                        <div class="modal__body">
+                            <div class="disease-description">
+                                <h4>Description</h4>
+                                <p id="modal-description"></p>
+                            </div>
+                            
+                            <div class="matching-symptoms">
+                                <h4>Matching Symptoms</h4>
+                                <ul id="modal-symptoms"></ul>
+                            </div>
+
+                            <div class="home-remedies">
+                                <h4>Home Remedies</h4>
+                                <div class="remedy-warning">
+                                    <p><strong>⚠️ Important:</strong> These are home remedies and should not replace professional medical advice.</p>
+                                </div>
+                                <ol id="modal-remedies"></ol>
+                            </div>
+
+                            <div class="medical-advice">
+                                <h4>When to See a Doctor</h4>
+                                <div class="status status--warning">
+                                    <span id="modal-doctor-advice"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal__footer">
+                            <button class="btn btn--secondary" id="print-results">Print Results</button>
+                            <button class="btn btn--primary" id="new-analysis">New Analysis</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__content">
+                <div class="footer__disclaimer">
+                    <h4>Important Medical Disclaimer</h4>
+                    <p>This tool is for informational purposes only and does not replace professional medical diagnosis or treatment. Always consult with qualified healthcare providers for medical concerns.</p>
+                    <p><strong>Emergency:</strong> If you have a medical emergency, call your local emergency number immediately.</p>
+                </div>
+                <div class="footer__developer">
+                    <p><strong>Developed by DEBUGGING DONS</strong></p>
+                    <p>Professional Medical Web Solutions</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
